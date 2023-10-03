@@ -56,7 +56,7 @@ def main():
     game_over = False
     game_over_time = 3000
     bom_imgs = []
-    for r in range(1, 11):
+    for r in range(1, 11): 
         bom_img = pg.Surface((20 * r, 20 * r))
         pg.draw.circle(bom_img, (255, 0, 0), (10 * r, 10 * r), 10 * r)
         bom_imgs.append(bom_img)
@@ -117,10 +117,6 @@ def main():
             vy *= -1
         screen.blit(bd_img, bd_rct) #練習１：Rectを使って試しにblit
         
-        if game_over:
-            screen.blit(kk_img2, kk_rct)
-        else:
-            screen.blit(kk_img, kk_rct)
 
         pg.display.update()
         tmr += 1
