@@ -53,23 +53,16 @@ def main():
 
     clock = pg.time.Clock()
     tmr = 0
-    game_over = False
-    game_over_time = 3000
-    bom_imgs = []
-    for r in range(1, 11): 
-        bom_img = pg.Surface((20 * r, 20 * r))
-        pg.draw.circle(bom_img, (255, 0, 0), (10 * r, 10 * r), 10 * r)
-        bom_imgs.append(bom_img)
-        bom_img.set_colorkey((0, 0, 0))
-        bom_img = bom_imgs[min(tmr // 500, 9)]
-        key_lis ={(-5, 0): pg.transform.rotozoom(kk_img, 0, 1.0), 
-                  (-5, -5): pg.transform.rotozoom(kk_img, -45, 1.0),
-                  (0, -5): pg.transform.flip(pg.transform.rotozoom(kk_img, -90, 1.0), True, False),
-                  (+5, -5): pg.transform.flip(pg.transform.rotozoom(kk_img, -45, 1.0), True, False),
-                  (+5, 0): pg.transform.flip(kk_img, True, False),
-                  (+5, +5): pg.transform.flip(pg.transform.rotozoom(kk_img, 45, 1.0), True, False),
-                  (0, +5): pg.transform.flip(pg.transform.rotozoom(kk_img, 90, 1.0), True, False),
-                  (-5, +5): pg.transform.rotozoom(kk_img, 45, 1.0),}
+    
+    #追加機能1　こうかとん画像を切り替えるリスト　
+    key_lis ={(-5, 0): pg.transform.rotozoom(kk_img, 0, 1.0), 
+              (-5, -5): pg.transform.rotozoom(kk_img, -45, 1.0),
+              (0, -5): pg.transform.flip(pg.transform.rotozoom(kk_img, -90, 1.0), True, False),
+              (+5, -5): pg.transform.flip(pg.transform.rotozoom(kk_img, -45, 1.0), True, False),
+              (+5, 0): pg.transform.flip(kk_img, True, False),
+              (+5, +5): pg.transform.flip(pg.transform.rotozoom(kk_img, 45, 1.0), True, False),
+              (0, +5): pg.transform.flip(pg.transform.rotozoom(kk_img, 90, 1.0), True, False),
+              (-5, +5): pg.transform.rotozoom(kk_img, 45, 1.0),}
     
     while True:
         for event in pg.event.get():
@@ -80,8 +73,8 @@ def main():
             print("ゲームオーバー")
             return
         
-        key_lst = pg.key.get_pressed()
-        sum_mv = [0, 0]
+        key_lst = pg.key.get_pressed() #追加機能1
+        sum_mv = [0, 0] #追加機能1　合計移動量
 
         for k, mv in delta.items():
             if key_lst[k]:
@@ -90,10 +83,6 @@ def main():
             for l, m in key_lis.items():
                 if sum_mv[0] == l[0] and sum_mv[1] ==l[1]:
                     kk_img = m  
-
-        kk_rct.move_ip(sum_mv)
-        if check_bound(kk_rct) != (True, True):
-            kk_rct.move_ip(-sum_mv[0], -sum_mv[1]) 
 
         screen.blit(bg_img, [0, 0])
         
